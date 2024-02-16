@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+    objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="sample1">
+        <createTable tableName="BaseThirdParty">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BASETHIRDPARTY"/>
+            </column>
+            <column name="DTYPE" type="VARCHAR(31)"/>
+            <column name="FULLNAME" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="sample1">
+        <createTable tableName="CASE_">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CASE_"/>
+            </column>
+            <column name="REFERENCE" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+            <column name="OWNER_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="sample1">
+        <createTable tableName="INSPECTION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INSPECTION"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+            <column name="INSPECTION_DATE" type="timestamp with time zone"/>
+            <column name="AGENT_ID" type="UUID"/>
+            <column name="CASE_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="sample1">
+        <createTable tableName="INVOICE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVOICE"/>
+            </column>
+            <column name="AMOUNT" type="INT"/>
+            <column name="DATE_" type="DATE"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="INSPECTION_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="sample1">
+        <createTable tableName="LEGAL_PERSON">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LEGAL_PERSON"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="sample1">
+        <createTable tableName="NATURAL_PERSON">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_NATURAL_PERSON"/>
+            </column>
+            <column name="FIRSTNAME" type="VARCHAR(255)"/>
+            <column name="LASTNAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="sample1">
+        <createIndex indexName="IDX_CASE__OWNER" tableName="CASE_">
+            <column name="OWNER_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="OWNER_ID" baseTableName="CASE_" constraintName="FK_CASE__ON_OWNER"
+                                 referencedColumnNames="ID" referencedTableName="BaseThirdParty"/>
+    </changeSet>
+    <changeSet id="8" author="sample1">
+        <createIndex indexName="IDX_INSPECTION_AGENT" tableName="INSPECTION">
+            <column name="AGENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="AGENT_ID" baseTableName="INSPECTION"
+                                 constraintName="FK_INSPECTION_ON_AGENT" referencedColumnNames="ID"
+                                 referencedTableName="NATURAL_PERSON"/>
+    </changeSet>
+    <changeSet id="9" author="sample1">
+        <createIndex indexName="IDX_INSPECTION_CASE" tableName="INSPECTION">
+            <column name="CASE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CASE_ID" baseTableName="INSPECTION"
+                                 constraintName="FK_INSPECTION_ON_CASE" referencedColumnNames="ID"
+                                 referencedTableName="CASE_"/>
+    </changeSet>
+    <changeSet id="10" author="sample1">
+        <createIndex indexName="IDX_INVOICE_INSPECTION" tableName="INVOICE">
+            <column name="INSPECTION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="INSPECTION_ID" baseTableName="INVOICE"
+                                 constraintName="FK_INVOICE_ON_INSPECTION" referencedColumnNames="ID"
+                                 referencedTableName="INSPECTION"/>
+    </changeSet>
+    <changeSet id="11" author="sample1">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="LEGAL_PERSON"
+                                 constraintName="FK_LEGAL_PERSON_ON_ID" referencedColumnNames="ID"
+                                 referencedTableName="BaseThirdParty"/>
+    </changeSet>
+    <changeSet id="12" author="sample1">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="NATURAL_PERSON"
+                                 constraintName="FK_NATURAL_PERSON_ON_ID" referencedColumnNames="ID"
+                                 referencedTableName="BaseThirdParty"/>
+    </changeSet>
+</databaseChangeLog>

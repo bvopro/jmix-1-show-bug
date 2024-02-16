@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/ui/menu">
 
+
+
+
+
     <menu id="application" caption="msg://com.company.sample1/menu.application" insertBefore="administration">
         <item screen="User.browse" caption="msg://com.company.sample1.screen.user/UserBrowse.caption"/>
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+        <item screen="Inspection.browse" caption="msg://com.company.sample1.screen.inspection/inspectionBrowse.menu"/>
+        <item screen="Invoice.browse" caption="msg://com.company.sample1.screen.invoice/invoiceBrowse.menu"/>
+        <item screen="LegalPerson.browse"
+              caption="msg://com.company.sample1.screen.legalperson/legalPersonBrowse.menu"/>
+        <item screen="NaturalPerson.browse"
+              caption="msg://com.company.sample1.screen.naturalperson/naturalPersonBrowse.menu"/>
+        <item screen="BaseThirdParty.browse"
+              caption="msg://com.company.sample1.screen.basethirdparty/baseThirdPartyBrowse.menu"/>
+        <item screen="Case_.browse" caption="msg://com.company.sample1.screen.case/caseBrowse.menu"/>
+        <item screen="Case_.browse1" caption="msg://com.company.sample1.screen.case/caseBrowse1.menu"/>
+        <item screen="Case_.browse2" caption="msg://com.company.sample1.screen.case/caseBrowse2.menu"/>
+        <item screen="Case_.browse3" caption="msg://com.company.sample1.screen.case/caseBrowse3.menu"/>
     </menu>
 
 </menu-config>
