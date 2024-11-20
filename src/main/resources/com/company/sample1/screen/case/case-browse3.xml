@@ -7,6 +7,8 @@
         <collection id="casesDc"
                     class="com.company.sample1.entity.Case">
             <fetchPlan extends="_base">
+                <property name="naturalPerson" fetchPlan="_base"/>
+                <property name="legalPerson" fetchPlan="_base"/>
                 <property name="owner" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="casesDl">
